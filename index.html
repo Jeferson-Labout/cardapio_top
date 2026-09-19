@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Top Espetinho | Cardápio</title>
+<meta name="description" content="Cardápio do Top Espetinho: espetinhos, espetão, porções, petiscos, caldos e bebidas.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍢</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --carvao:#161514; --carvao2:#201e1c; --brasa:#F2641A; --brasa-escura:#c94d0c;
+  --osso:#F4F1EC; --cinza:#a39e97; --linha:#34302c;
+  --display:"Bebas Neue",Impact,"Arial Narrow",sans-serif;
+  --cond:"Barlow Condensed","Arial Narrow",sans-serif;
+  --texto:"Barlow",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--carvao);color:var(--osso);font-family:var(--texto);line-height:1.45;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.topo{padding:40px 20px 28px;max-width:720px;margin:0 auto;
+  background:radial-gradient(120% 90% at 100% 0%,rgba(242,100,26,.28),transparent 60%)}
+.marca{font-family:var(--display);font-size:clamp(64px,19vw,120px);line-height:.82;letter-spacing:.5px}
+.marca span{display:block;color:var(--brasa)}
+.info{margin-top:18px;font-family:var(--cond);font-size:17px;font-weight:500;color:var(--cinza);display:flex;flex-wrap:wrap;gap:4px 18px}
+.info a{color:var(--osso);text-decoration:none;border-bottom:1px solid var(--brasa)}
+nav{position:sticky;top:0;z-index:5;background:rgba(22,21,20,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--linha)}
+nav ul{list-style:none;display:flex;gap:6px;overflow-x:auto;padding:10px 16px;max-width:720px;margin:0 auto;scrollbar-width:none}
+nav ul::-webkit-scrollbar{display:none}
+nav a{display:block;white-space:nowrap;text-decoration:none;font-family:var(--cond);font-weight:600;font-size:17px;padding:6px 14px;border-radius:999px;border:1px solid var(--linha);color:var(--cinza)}
+nav a.ativo{background:var(--brasa);border-color:var(--brasa);color:#1a0d05}
+nav a:focus-visible,.info a:focus-visible{outline:2px solid var(--brasa);outline-offset:2px}
+main{max-width:720px;margin:0 auto;padding:8px 20px 40px}
+section{padding-top:34px}
+.cab{display:grid;grid-template-columns:1fr auto;align-items:end;gap:12px;border-bottom:3px solid var(--brasa);padding-bottom:6px;margin-bottom:6px}
+h2{font-family:var(--display);font-weight:400;font-size:clamp(44px,12vw,58px);line-height:.9;color:var(--brasa)}
+.cols,.precos{display:grid;grid-auto-flow:column;grid-auto-columns:74px;text-align:right}
+.cols span{font-family:var(--cond);font-size:14px;font-weight:600;color:var(--cinza)}
+.nota{font-size:14px;color:var(--cinza);margin:10px 0 4px;padding-left:10px;border-left:2px solid var(--brasa-escura)}
+.item{display:grid;grid-template-columns:1fr auto;gap:12px;padding:12px 0;border-bottom:1px dashed var(--linha);align-items:baseline}
+.item:last-child{border-bottom:0}
+.nome{font-family:var(--cond);font-weight:700;font-size:21px;line-height:1.1}
+.desc{font-size:14px;color:var(--cinza);margin-top:3px;max-width:48ch}
+.precos span{font-family:var(--cond);font-weight:700;font-size:21px;color:var(--brasa);white-space:nowrap}
+.precos .vazio{color:transparent}
+.rodape{max-width:720px;margin:0 auto;padding:28px 20px 48px;border-top:1px solid var(--linha);color:var(--cinza);font-size:15px;display:grid;gap:6px}
+.rodape strong{color:var(--osso);font-weight:500}
+@media (max-width:380px){.cols,.precos{grid-auto-columns:64px}.nome,.precos span{font-size:19px}}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <h1 class="marca">Top <span>Espetinho</span></h1>
+  <p class="info">
+    <span>Segunda a sexta, 17h às 23h30</span>
+    <a href="https://instagram.com/top.espetinho10" target="_blank" rel="noopener">@top.espetinho10</a>
+  </p>
+</header>
+
+<nav aria-label="Categorias do cardápio"><ul id="nav"></ul></nav>
+<main id="cardapio"></main>
+
+<footer class="rodape">
+  <p><strong>Embalagem para viagem:</strong> R$ 2,00</p>
+  <p>Cobramos taxa de serviço de 10% (opcional).</p>
+</footer>
+
+<script type="text/csv" id="precos-reserva">
+categoria,item,descricao,preco,preco2,disponivel
+Clássicos,Romeu e Julieta 150g,"Queijo coalho, goiabada e bacon",14,32,sim
+Clássicos,Queijo provolone 130g,,14,32,sim
+Clássicos,Queijo coalho 130g,,14,32,sim
+Clássicos,Coxa e sobrecoxa desossada 150g,,14,32,sim
+Clássicos,Asinha (tulipa) 160g,,14,32,sim
+Clássicos,Filé de frango 150g,,14,32,sim
+Clássicos,Frango com bacon 150g,,14,32,sim
+Clássicos,Coração de galinha 100g,,14,32,sim
+Clássicos,Linguiça apimentada 180g,,14,32,sim
+Espetão Top,Contrafilé 700g,,154,,sim
+Espetão Top,Filé mignon 700g,,164,,sim
+Espetão Top,Picanha 700g,,174,,sim
+Espetão Top,Cupim e picanha 700g,,174,,sim
+Bovinos,Contrafilé 160g,,22,40,sim
+Bovinos,Filé mignon 180g,,26,44,sim
+Bovinos,Filé mignon c/ bacon 180g,,26,44,sim
+Bovinos,Picanha 180g,,31,49,sim
+Bovinos,Cupim 160g,,22,40,sim
+Bovinos,Fraldinha 150g,,16,34,sim
+Bovinos,Língua 150g,,16,34,sim
+Bovinos,Kafta 160g,,16,34,sim
+Porções,Feijão de caldo,,8,16,sim
+Porções,Feijão tropeiro,,10,20,sim
+Porções,Arroz,,8,16,sim
+Porções,Mandioca cozida,,8,16,sim
+Porções,Paçoca de carne,,15,,sim
+Porções,Vinagrete 150 ml,,7,,sim
+Petiscos,Mandioca frita,Mandioca com queijo 600g,29,,sim
+Petiscos,Batata simples,Batata frita 600g,33,,sim
+Petiscos,Batata com bacon,Batata frita com bacon e cheddar 600g,38,,sim
+Petiscos,Pão de alho,Pão de alho tradicional,7,,sim
+Caldos,Frango,,20,,sim
+Caldos,Carne desfiada,,20,,sim
+Caldos,Misto,,20,,sim
+Cervejas,Heineken 600 ml,,"17,90",,sim
+Cervejas,Stella Pure Gold 600 ml,,"17,90",,sim
+Cervejas,Corona 600 ml,,"17,90",,sim
+Cervejas,Amstel 600 ml,,"12,90",,sim
+Cervejas,Original 600 ml,,"14,90",,sim
+Cervejas,Antarctica 600 ml,,"11,90",,sim
+Cervejas,Heineken long neck / zero 330 ml,,"11,90",,sim
+Cervejas,Michelob long neck 330 ml,,"11,90",,sim
+Cervejas,Corona long neck / zero 330 ml,,"11,90",,sim
+Cervejas,Stella Pure Gold long neck 330 ml,,"11,90",,sim
+Cervejas,Amstel Ultra long neck 275 ml,,"10,90",,sim
+Cervejas,Amstel lata 269 ml,,"5,50",,sim
+Cervejas,Original lata 269 ml,,"6,00",,sim
+Cervejas,Cozumel,,"14,90",,sim
+Cervejas,Preparo de Cozumel,,"6,90",,sim
+Cervejas,Shot de limão / laranja,,"3,00",,sim
+Destilados,Licor 43,,18,,sim
+Destilados,Campari,,15,,sim
+Destilados,Old Parr 12 anos,,18,,sim
+Destilados,Jack Daniel's,,18,,sim
+Destilados,Chivas Regal 12 anos,,20,,sim
+Destilados,Buchanan's 12 anos,,22,,sim
+Destilados,Black Label 12 anos,,22,,sim
+Destilados,Taxa de rolha,,30,,sim
+Bebidas,Água sem gás,,5,,sim
+Bebidas,Água com gás,,6,,sim
+Bebidas,Água tônica / zero 350 ml,,8,,sim
+Bebidas,H2O tradicional / limoneto,,"8,50",,sim
+Bebidas,Sprite / zero lata 350 ml,,8,,sim
+Bebidas,Coca-Cola KS / zero 290 ml,,"7,50",,sim
+Bebidas,Coca-Cola lata / zero 350 ml,,8,,sim
+Bebidas,Coca-Cola 1 litro / zero,,13,,sim
+Bebidas,"Guaraná 1,5 litro",,13,,sim
+Bebidas,Guaraná lata / zero 350 ml,,8,,sim
+Bebidas,Fanta Laranja lata 350 ml,,8,,sim
+Bebidas,Suco Del Valle uva 290 ml,,8,,sim
+Bebidas,Suco Del Valle pêssego 290 ml,,8,,sim
+Bebidas,Suco de laranja 500 ml,,12,,sim
+Bebidas,Suco de laranja 1 litro,,23,,sim
+Bebidas,Suco de maracujá 500 ml,,11,,sim
+Bebidas,Suco de maracujá 1 litro,,21,,sim
+Bebidas,Red Bull / zero 250 ml,,11,,sim
+Sobremesas,Pudim no copo,,"15,90",,sim
+Sobremesas,Sorvete na taça,"Sorvete de chocolate, morango e creme, com castanha de caju, calda de chocolate e canudo wafer","24,00",,sim
+Sobremesas,Ouro Gelado,"Sorvete de creme com cobertura de chocolate, 3 bombons Ouro Branco tostados, canudo wafer e castanha de caju","28,00",,sim
+
+</script>
+<script>
+/* ============================================================
+   CONFIGURAÇÃO
+   1) Cole abaixo o link CSV da planilha publicada no Google Sheets
+      (Arquivo > Compartilhar > Publicar na web > formato CSV).
+   2) Enquanto estiver vazio, o site usa os preços embutidos no fim deste arquivo.
+   ============================================================ */
+const PLANILHA_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRPGBH8gvnrKQq-4Hg1l6HnhXvyez3jmhP4r4ac1qSgZhoaAkMwVS9FaDfF1M8SRYJei_pZKwNZnATT/pub?gid=1166319248&single=true&output=csv";
+
+/* Colunas de preço e observações de cada categoria (opcional).
+   Categorias novas criadas na planilha aparecem automaticamente. */
+const CATEGORIAS = {
+  "Clássicos":  { cols:["Simples","Completo"], nota:"Completo acompanha arroz, feijão tropeiro ou feijão de caldo, mandioca cozida, vinagrete e alho frito." },
+  "Espetão Top":{ nota:"Acompanha arroz branco, feijão tropeiro, paçoca de carne desfiada, vinagrete, feijão de caldo, mandioca cozida, alho frito e manteiga de garrafa." },
+  "Bovinos":    { cols:["Simples","Completo"], nota:"Completo acompanha arroz, feijão tropeiro ou feijão de caldo, mandioca cozida, vinagrete e alho frito." },
+  "Porções":    { cols:["300 ml","750 ml"] },
+  "Caldos":     { nota:"Porção de 350 ml. Acompanha torrada, cheiro-verde e queijo muçarela." },
+  "Destilados": { cols:["Dose"] }
+};
+
+/* ---------------- daqui pra baixo não precisa mexer ---------------- */
+function lerCSV(t){
+  const linhas=[];let l=[],c="",aspas=false;
+  for(let i=0;i<t.length;i++){const ch=t[i];
+    if(aspas){ if(ch==='"'){ if(t[i+1]==='"'){c+='"';i++;} else aspas=false; } else c+=ch; }
+    else if(ch==='"') aspas=true;
+    else if(ch===','){ l.push(c); c=""; }
+    else if(ch==='\n'){ l.push(c); linhas.push(l); l=[]; c=""; }
+    else if(ch!=='\r') c+=ch;
+  }
+  if(c!==""||l.length){ l.push(c); linhas.push(l); }
+  return linhas.filter(r=>r.some(x=>x.trim()!==""));
+}
+const semAcento=s=>s.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().trim();
+function numero(v){
+  if(!v) return null;
+  let s=String(v).replace(/r\$/i,"").replace(/\s/g,"");
+  if(s.includes(",")) s=s.replace(/\./g,"").replace(",",".");
+  const n=parseFloat(s); return isNaN(n)?null:n;
+}
+const real=n=>"R$ "+(Number.isInteger(n)?n:n.toFixed(2).replace(".",","));
+const slug=s=>semAcento(s).replace(/[^a-z0-9]+/g,"-");
+const esc=s=>String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));
+
+function organizar(csv){
+  const [cab,...linhas]=lerCSV(csv);
+  const idx={}; cab.forEach((h,i)=>idx[semAcento(h)]=i);
+  const pega=(r,k)=>(r[idx[k]]||"").trim();
+  const grupos=new Map();
+  for(const r of linhas){
+    const cat=pega(r,"categoria"), nome=pega(r,"item");
+    if(!cat||!nome) continue;
+    if(["nao","n","0","false"].includes(semAcento(pega(r,"disponivel")))) continue;
+    if(!grupos.has(cat)) grupos.set(cat,[]);
+    grupos.get(cat).push({nome,desc:pega(r,"descricao"),p1:numero(pega(r,"preco")),p2:numero(pega(r,"preco2"))});
+  }
+  return grupos;
+}
+
+function desenhar(grupos){
+  const nav=document.getElementById("nav"), main=document.getElementById("cardapio");
+  let n="",m="";
+  for(const [cat,itens] of grupos){
+    const cfg=CATEGORIAS[cat]||{}, id=slug(cat);
+    const duas=itens.some(i=>i.p2!==null);
+    n+=`<li><a href="#${id}">${esc(cat)}</a></li>`;
+    m+=`<section id="${id}"><div class="cab"><h2>${esc(cat)}</h2>`+
+       (cfg.cols?`<div class="cols">${cfg.cols.slice(0,duas?2:1).map(c=>`<span>${esc(c)}</span>`).join("")}</div>`:"")+
+       `</div>`+(cfg.nota?`<p class="nota">${esc(cfg.nota)}</p>`:"");
+    for(const i of itens){
+      m+=`<div class="item"><div><div class="nome">${esc(i.nome)}</div>`+
+         (i.desc?`<div class="desc">${esc(i.desc)}</div>`:"")+`</div><div class="precos">`+
+         (i.p1!==null?`<span>${real(i.p1)}</span>`:"")+
+         (duas?(i.p2!==null?`<span>${real(i.p2)}</span>`:`<span class="vazio">–</span>`):"")+
+         `</div></div>`;
+    }
+    m+=`</section>`;
+  }
+  nav.innerHTML=n; main.innerHTML=m; marcarAtivo();
+}
+
+function marcarAtivo(){
+  const nav=document.getElementById("nav");
+  const links=[...nav.querySelectorAll("a")];
+  const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){
+    links.forEach(a=>a.classList.toggle("ativo",a.hash==="#"+e.target.id));
+    const at=links.find(a=>a.hash==="#"+e.target.id);
+    if(at) nav.scrollTo({left:at.offsetLeft-(nav.clientWidth-at.offsetWidth)/2,behavior:"smooth"});
+  }})},{rootMargin:"-70px 0px -70% 0px"});
+  document.querySelectorAll("main section").forEach(s=>obs.observe(s));
+}
+
+const RESERVA=document.getElementById("precos-reserva").textContent.trim();
+desenhar(organizar(RESERVA));
+if(PLANILHA_CSV_URL){
+  fetch(PLANILHA_CSV_URL+(PLANILHA_CSV_URL.includes("?")?"&":"?")+"t="+Date.now())
+    .then(r=>{if(!r.ok) throw 0; return r.text();})
+    .then(t=>{const g=organizar(t); if(g.size) desenhar(g);})
+    .catch(()=>{});
+}
+</script>
+</body>
+</html>
